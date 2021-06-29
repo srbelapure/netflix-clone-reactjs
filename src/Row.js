@@ -45,10 +45,12 @@ function Row({ title, fetchUrl, isLargeRow }) {
         })
         .catch((error) => {
           console.log("error", error);
+          alert(
+            "An Error Occured. No trailer found for selected movie"
+          );
         });
     }
   };
-
   return (
     <div className="row">
       <h2>{title}</h2>
@@ -58,10 +60,11 @@ function Row({ title, fetchUrl, isLargeRow }) {
             <img
               className={`row_poster ${isLargeRow && "row_poster_large"}`}
               key={movie.id}
-              src={`${base_url}${
-                isLargeRow ? movie?.poster_path : movie?.backdrop_path
-              }`}
-              alt={movie.name}
+              //   src={`${base_url}${
+              //     isLargeRow ? movie?.poster_path : movie?.backdrop_path
+              //   }`}
+              src={`${base_url}${movie?.poster_path}`}
+              alt={movie.name || movie.title}
               onClick={() => handleClick(movie)}
             />
           );

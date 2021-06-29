@@ -15,7 +15,7 @@ function Nav() {
         })
         return()=>{
             //before firing the effect again remove the earlier event listner
-            window.removeEventListener("scroll")
+            window.removeEventListener("scroll",()=>{})
         }
     }, [])
   return (
@@ -25,11 +25,11 @@ function Nav() {
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/250px-Netflix_2015_logo.svg.png"
         alt="Netflix Logo"
       />
-      <img
+      {/* <img
         className="nav_avatar"
         src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/366be133850498.56ba69ac36858.png"
         alt="Netflix Logo"
-      />
+      /> */}
     </div>
   );
 }
