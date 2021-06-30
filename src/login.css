@@ -1,0 +1,56 @@
+.login_button,.logout_button {
+  position: fixed;
+  right: 50px;
+  object-fit: contain;
+  padding-bottom: 100px;
+  color: white !important;
+  background-color: #e50914 !important;
+}
+
+.logout_button{
+  top: 3vh
+}
+
+.login_button,.signup_button{
+  top: 3vh;
+}
+
+.login_button:hover{
+  color: #e50914 !important;
+  background-color: white !important;
+}
+
+.signup_button:hover{
+  color: #e50914 !important;
+  background-color: white !important;
+}
+
+.logout_button:hover{
+  color: #e50914 !important;
+  background-color: white !important;
+}
+
+.signup_button {
+  position: fixed;
+  right: 125px;
+  object-fit: contain;
+  padding-bottom: 100px;
+  color: white !important;
+  background-color: #e50914 !important;
+}
+
+.modal-content {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+  font-weight: 600;
+  color: white;
+  height: 35vh;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+}
+
+form.netflix_form_group,label{
+  width: 8vw;
+}

@@ -3,11 +3,13 @@
   top: 0;
   width: 100%;
   padding: 20px;
-  height: 30px;
+  height: 10vh;
   z-index: 1;
-/* 
+
   display: flex;
-  justify-content: space-between; */
+  /* justify-content: space-between;  */
+  justify-content: center;
+  align-items: center;
 
   /* Animation */
   transition-timing-function: ease-out;
@@ -23,6 +25,10 @@
     left: 20px;
     width: 80px;
     object-fit: contain;
+
+    width: 8.375rem;
+    height: 2.25rem;
+    top: 25px;
 }
 
 .nav_avatar {

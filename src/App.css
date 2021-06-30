@@ -4,4 +4,9 @@
 
 .App{
   background-color: #111;
+  width: 100vw;
+}
+
+body{
+  overflow-x: hidden;
 }

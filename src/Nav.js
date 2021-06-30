@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from "react";
+import Login from './Login'
 import './Nav.css'
 
 function Nav() {
@@ -30,6 +31,8 @@ function Nav() {
         src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/366be133850498.56ba69ac36858.png"
         alt="Netflix Logo"
       /> */}
+      
+      <Login/>
     </div>
   );
 }

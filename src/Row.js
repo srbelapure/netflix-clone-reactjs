@@ -53,7 +53,7 @@ function Row({ title, fetchUrl, isLargeRow }) {
   };
   return (
     <div className="row">
-      <h2>{title}</h2>
+      <h4>{title}</h4>
       <div className="row_posters">
         {movies.map((movie) => {
           return (
@@ -70,7 +70,9 @@ function Row({ title, fetchUrl, isLargeRow }) {
           );
         })}
       </div>
+      <div className="poster_item_trailer">
       {trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />}
+      </div>
     </div>
   );
 }
