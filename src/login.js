@@ -123,7 +123,7 @@ function Login() {
       >
         <ModalHeader toggle={toggleModal}>Login</ModalHeader>
         <ModalBody>
-          <Form onSubmit={handleLogin}>
+          <Form className="login_form" onSubmit={handleLogin}>
             <FormGroup className="netflix_form_group">
               <label htmlFor="email">Email</label>
               <input

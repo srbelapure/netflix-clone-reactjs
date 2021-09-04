@@ -40,13 +40,15 @@
 }
 
 .modal-content {
-  background-color: rgba(0, 0, 0, 0.75) !important;
+  background-color: rgba(0, 0, 0, 1) !important;
   font-weight: 600;
   color: white;
-  height: 35vh;
+  max-height: 35vh;
+  max-width: 40vw;
+  top: 25vh;
 }
 
-form{
+.login_form{
   display: flex;
   flex-direction: column;
 }

@@ -4,6 +4,52 @@
     align-items: center;
 }
 
+.home_page_gradient{
+    background-image: linear-gradient(
+        to top,
+        rgba(0,0,0,0.8) 0,
+        rgba(0,0,0,0) 40%,
+        rgba(0,0,0,0.8) 100%,
+    );
+    background: rgba(0,0,0,0.4);
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+}
+
 .home_page_description{
     color: white;
+    position: absolute;
+    top: 25%;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    z-index: 2;
+}
+
+/* .home_screen_input{
+    display: flex;
+    flex-direction: row;
+} */
+
+.home_screen_input form input{
+    padding: 10px;
+    border: none;
+    border-radius: 2px;
+    width: 30vw;
+    outline-width: 0; 
+    max-width: 30vw;
+    /* outline-width   -> removes the blue border of input on focus */
+}
+
+.home_screen_input_button{
+    padding: 10px;
+    color: white !important;
+    background-color: #e50914 !important;
+    border: none;
+    border-radius: 2px;
+    font-weight: bold;
+    font-size: 1rem;
 }

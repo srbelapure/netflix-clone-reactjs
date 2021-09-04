@@ -1,0 +1,61 @@
+.profilescreen {
+  width: 100vw;
+  height: 100vh;
+  color: white;
+}
+
+.edit_profile_section {
+  padding: 15%;
+}
+
+.edit_profile_sub_section {
+  display: flex;
+  flex-direction: row;
+}
+
+.logged_in_user {
+  background-color: gray;
+  color: white;
+  font-weight: bold;
+  padding: 5px;
+}
+
+.current_user_plan {
+  font-weight: bold;
+}
+
+.plan_subscribe_button {
+  color: white !important;
+  background-color: #e50914 !important;
+  border: none;
+}
+
+.user_profile_logout_button {
+  color: white !important;
+  background-color: #e50914 !important;
+  font-weight: bold;
+  outline-width: 0;
+  border: none;
+}
+
+.current_user_plan{
+  border-bottom: 1px solid gray;
+  padding: 10px 0;
+  margin-bottom: 5px;
+}
+
+.plan_subscribe_button{
+  height: 30px;
+}
+
+.plans_options>div{
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.plan_name_price{
+  display: flex;
+  flex-direction: column;
+  width: 15vw; 
+}
