@@ -24,17 +24,17 @@ function ProfileScreen() {
     {
       id: 1,
       name: "Netflix Standard",
-      price: "199",
+      price: "13.99",
     },
     {
       id: 2,
       name: "Netflix Basic",
-      price: "499",
+      price: "8.99",
     },
     {
       id: 3,
       name: "Netflix Premium",
-      price: "1999",
+      price: "17.99",
     },
   ];
 
@@ -92,7 +92,7 @@ function ProfileScreen() {
                         <div className="highlight_selected_plan">
                           <div className="plan_name_price">
                           <span>{option.name}</span>
-                          <span className="plan_price"> {option.price}</span>
+                          <span className="plan_price"> ${option.price}</span>
                           </div>
                           <button className="plan_subscribe_button" type="button" onClick={()=>subscribePlan(option)}>
                             Subscribe
@@ -102,7 +102,7 @@ function ProfileScreen() {
                         <>
                           <div className="plan_name_price">
                           <span>{option.name}</span>
-                          <span className="plan_price"> {option.price}</span>
+                          <span className="plan_price"> ${option.price}</span>
                           </div>
                           <button className="plan_subscribe_button" type="button" onClick={()=>subscribePlan(option)}>
                             Subscribe
