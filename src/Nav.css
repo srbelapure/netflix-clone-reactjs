@@ -1,7 +1,7 @@
 .nav {
   position: fixed;
   top: 0;
-  width: 100%;
+  width: 100vw;
   padding: 20px;
   height: 10vh;
   z-index: 3;
@@ -32,8 +32,23 @@
 }
 
 .nav_avatar {
-    position: fixed;
+    /* position: fixed;
     right: 20px;
     width: 30px;
     object-fit: contain;
+    top: 5vh; */
+
+    position: fixed;
+    right: 15px;
+    width: 30px;
+    object-fit: contain;
+    top: 3.5vh;
 }
+
+
+@media (min-width:320px) and (max-width:767px){
+    .nav_avatar{
+        top: 74px !important;
+        left: 152px;
+      }
+  }

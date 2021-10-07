@@ -87,32 +87,26 @@ function Login() {
     auth.signOut();
     history.push("/");
   };
-
-  console.log(
-    "userloggedinn**************************",
-    userloggedinn,
-    userloggedinn?.displayName
-  );
-
+  
   return (
     <>
       <div className="login_signup_buttons">
         {userloggedinn?.displayName ? (
-          <Button className="logout_button" outline onClick={onLogOut}>
+          <button className="logout_button" onClick={onLogOut}>
             Logout
-          </Button>
+          </button>
         ) : (
           <>
-            <Button className="login_button" outline onClick={toggleModal}>
+            <button className="login_button" onClick={toggleModal}>
               Login
-            </Button>
-            <Button
+            </button>
+            <button
               className="signup_button"
               outline
               onClick={toggleSignUpModal}
             >
               Sign Up
-            </Button>
+            </button>
           </>
         )}
       </div>

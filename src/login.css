@@ -2,7 +2,8 @@
   position: fixed;
   right: 50px;
   object-fit: contain;
-  padding-bottom: 100px;
+  /* padding-bottom: 10px; */
+  padding: 5px;
   color: white !important;
   background-color: #e50914 !important;
 }
@@ -32,9 +33,11 @@
 
 .signup_button {
   position: fixed;
-  right: 125px;
+  /* right: 125px; */
+  right: 110px;
   object-fit: contain;
-  padding-bottom: 100px;
+  /* padding-bottom: 10px; */
+  padding: 5px;
   color: white !important;
   background-color: #e50914 !important;
 }
@@ -55,4 +58,19 @@
 
 form.netflix_form_group,label{
   width: 8vw;
+}
+
+@media (min-width:320px) and (max-width:767px){
+  .login_button,.logout_button,.signup_button{
+    top: 70px;
+  }
+  .signup_button{
+    left: 20px;
+  }
+  .login_button{
+    left: 95px;
+  }
+  .logout_button{
+    left: 80px;
+  }
 }

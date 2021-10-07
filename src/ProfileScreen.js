@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "./features/userSlice";
 import { auth } from "./firebase";
@@ -6,7 +6,18 @@ import Nav from "./Nav";
 import { useHistory } from "react-router-dom";
 import "./ProfileScreen.css";
 
+var todaysDate = new Date();
+var numberOfDaysToAdd = 10;
+todaysDate.setDate(todaysDate.getDate() + numberOfDaysToAdd);
+var dd = todaysDate.getDate();
+var mm = todaysDate.getMonth() + 1;
+var y = todaysDate.getFullYear();
+
+var renewalFormattedDate = mm + '/'+ dd + '/'+ y;
+
 function ProfileScreen() {
+  const [netflixPlan, setNetflixPlan] = useState(localStorage.getItem('selectedNetflixPlan'))
+  const [renewalDate, setRenewalDate] = useState(renewalFormattedDate)
   const user = useSelector(selectUser);
   const history = useHistory();
   const netflixPlanOptions = [
@@ -22,7 +33,7 @@ function ProfileScreen() {
     },
     {
       id: 3,
-      name: "Netflix Premiun",
+      name: "Netflix Premium",
       price: "1999",
     },
   ];
@@ -31,6 +42,11 @@ function ProfileScreen() {
     auth.signOut();
     history.push("/");
   };
+
+  const subscribePlan =(optionSelected)=>{
+    localStorage.setItem('selectedNetflixPlan',optionSelected.name)
+    setNetflixPlan(localStorage.getItem('selectedNetflixPlan'))
+  }
   return (
     <div className="profilescreen">
       <Nav />
@@ -52,31 +68,47 @@ function ProfileScreen() {
               height: "10vh",
               width: "10vw",
               objectFit: "contain",
+              marginRight:'5px',
             }}
           />
           <div className="user_plans_section">
             <div className="logged_in_user">
-              {user ? user.email : "not logged inn"}
+              User : {user ? user.email : "not logged inn"}
             </div>
             <div className="plans">
               <div className="current_user_plan">
-                Plans(Current Plan:premium)
+                Current Plan : {netflixPlan}
               </div>
               {/* <hr/> */}
               <div className="plans_renewal_date">
-                Renewal date : display a date
+                Renewal date : {renewalDate}
               </div>
               <div className="plans_options">
                 {netflixPlanOptions.map((option) => {
                   return (
                     <div key={option.id}>
-                      <div className="plan_name_price">
-                      <span>{option.name}</span>
-                      <span className="plan_price"> {option.price}</span>
-                      </div>
-                      <button className="plan_subscribe_button" type="button">
-                        Subscribe
-                      </button>
+                      {
+                        localStorage.getItem('selectedNetflixPlan') === option.name ?
+                        <div className="highlight_selected_plan">
+                          <div className="plan_name_price">
+                          <span>{option.name}</span>
+                          <span className="plan_price"> {option.price}</span>
+                          </div>
+                          <button className="plan_subscribe_button" type="button" onClick={()=>subscribePlan(option)}>
+                            Subscribe
+                          </button>
+                        </div>
+                        :
+                        <>
+                          <div className="plan_name_price">
+                          <span>{option.name}</span>
+                          <span className="plan_price"> {option.price}</span>
+                          </div>
+                          <button className="plan_subscribe_button" type="button" onClick={()=>subscribePlan(option)}>
+                            Subscribe
+                          </button>
+                        </>
+                      }
                     </div>
                   );
                 })}

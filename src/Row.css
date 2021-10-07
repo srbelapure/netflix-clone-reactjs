@@ -1,6 +1,7 @@
 .row{
     color: white;
     margin-left: 20px !important;
+    margin-right: 0 !important;
 }
 
 .row_posters {
@@ -42,4 +43,8 @@
 .poster_item_trailer{
   width: 100vw;
   text-align: center;
+}
+
+@media (min-width:320px) and (max-width: 500px) {
+  
 }
