@@ -7,6 +7,7 @@ import Nav from './Nav'
 import HomePage from './HomePage'
 import Login from './Login'
 import ProfileScreen from './ProfileScreen'
+import SeriesDetails from './SeriesDetails'
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import './App.css';
@@ -47,7 +48,6 @@ const dispatch = useDispatch();
 useEffect(() => {
   const unsubscribe = auth.onAuthStateChanged((userAuth) => {
     if (userAuth) {
-      console.log("userAuth", userAuth);
       dispatch(
         login({
           uid: userAuth.uid,
@@ -93,6 +93,7 @@ useEffect(() => {
             <Row title="Documentaries" fetchUrl={requests.fetchDocumentaries} />
           </Route>
           <Route path="/profile" component={ProfileScreen}/>
+          <Route path="/tv/:seriesname" component={SeriesDetails}/>
         </div>
         </>
       </Switch>

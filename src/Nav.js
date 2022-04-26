@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from "react";
 import Login from './Login'
+import { auth } from "./firebase";
 import { useHistory } from "react-router-dom";
 import './Nav.css'
 
@@ -21,21 +22,28 @@ function Nav() {
             window.removeEventListener("scroll",()=>{})
         }
     }, [])
+
+    const onLogoClick=()=>{
+      if(window.location.pathname==='/profile'){
+        history.push("/movies")
+      }
+      else if(window.location.pathname==='/movies'){
+        auth.signOut();
+        history.push("/")
+      }
+      else if(window.location.pathname==='/tv/:seriesname'){
+        history.push("/movies")
+      }
+    }
   return (
     <div className={`nav ${show && "nav_black"}`}>
       <img
-        onClick={()=>window.location.pathname==='/profile' ? history.push("/movies") :history.push("/")}
+        onClick={onLogoClick}
         className="nav_logo"
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/250px-Netflix_2015_logo.svg.png"
         alt="Netflix Logo"
+        style={{cursor:"pointer"}}
       />
-      <img
-        onClick={()=>history.push("/profile")}
-        className="nav_avatar"
-        src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/366be133850498.56ba69ac36858.png"
-        alt="Netflix Logo"
-      />
-      
       <Login/>
     </div>
   );

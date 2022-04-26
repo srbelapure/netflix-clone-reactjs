@@ -6,9 +6,10 @@
   height: 10vh;
   z-index: 3;
 
-  display: flex;
+  display: flex !important;
+  justify-content: flex-end !important;
   /* justify-content: space-between;  */
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
 
   /* Animation */
@@ -31,24 +32,15 @@
     top: 25px;
 }
 
-.nav_avatar {
-    /* position: fixed;
-    right: 20px;
-    width: 30px;
-    object-fit: contain;
-    top: 5vh; */
-
-    position: fixed;
-    right: 15px;
-    width: 30px;
-    object-fit: contain;
-    top: 3.5vh;
-}
 
 
-@media (min-width:320px) and (max-width:767px){
-    .nav_avatar{
+
+@media screen and (max-width:400px){
+    /* .nav_avatar{
         top: 74px !important;
         left: 152px;
+      } */
+      .nav {
+        justify-content: flex-start !important; 
       }
   }

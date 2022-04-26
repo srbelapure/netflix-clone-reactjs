@@ -1,20 +1,23 @@
 .login_button,.logout_button {
-  position: fixed;
-  right: 50px;
+  /* position: fixed;
+  right: 50px; */
   object-fit: contain;
   /* padding-bottom: 10px; */
   padding: 5px;
   color: white !important;
   background-color: #e50914 !important;
+  border: none;
+  font-weight: bold;
+  border-radius: 2px;
 }
 
-.logout_button{
+/* .logout_button{
   top: 3vh
-}
+} */
 
-.login_button,.signup_button{
+/* .login_button,.signup_button{
   top: 3vh;
-}
+} */
 
 .login_button:hover{
   color: #e50914 !important;
@@ -32,23 +35,48 @@
 }
 
 .signup_button {
-  position: fixed;
+  /* position: fixed; */
   /* right: 125px; */
-  right: 110px;
+  /* right: 110px; */
   object-fit: contain;
   /* padding-bottom: 10px; */
   padding: 5px;
   color: white !important;
   background-color: #e50914 !important;
+  border: none;
+  font-weight: bold;
+  border-radius: 2px;
 }
 
 .modal-content {
   background-color: rgba(0, 0, 0, 1) !important;
   font-weight: 600;
   color: white;
-  max-height: 35vh;
+  /* max-height: 35vh;
   max-width: 40vw;
-  top: 25vh;
+  top: 25vh; */
+  color: darkgray;
+}
+
+div.fade.in.modal {
+  display:flex !important;
+}
+
+.modal-dialog {
+  margin: auto;
+}
+
+.netflix_form_group.form-group{
+  display: flex;
+  flex-direction: row;
+}
+
+.netflix_form_group.form-group input{
+  display: flex;
+  flex: 1;
+  border: none;
+  border-radius: 3px;
+  background-color: rgba(146 ,146 ,146,1);
 }
 
 .login_form{
@@ -57,20 +85,57 @@
 }
 
 form.netflix_form_group,label{
-  width: 8vw;
+  /* width: 8vw; */
+  flex: 0.25;
 }
 
-@media (min-width:320px) and (max-width:767px){
-  .login_button,.logout_button,.signup_button{
-    top: 70px;
+.submit-button-modals{
+  margin: 0px auto;
+  width: 30%;
+}
+
+button.close{
+  color: darkgray;
+}
+
+.login_signup_buttons{
+  display: flex;
+  /* border: 2px solid yellow; */
+  margin: 0px 5px
+}
+
+.logout_button,.signup_button,.login_button{
+  margin: 0px 5px
+}
+
+.nav_avatar {
+  /* position: fixed;
+  right: 20px;
+  width: 30px;
+  object-fit: contain;
+  top: 5vh; */
+
+  /* position: fixed;
+  right: 15px; */
+  width: 30px;
+  object-fit: contain;
+  margin: 0px 5px;
+  cursor:pointer;
+  /* top: 3.5vh; */
+}
+
+@media screen and (max-width:400px){
+  .login_signup_buttons{
+    display: flex;
+    flex-direction: row;
+    margin-top: 3rem
   }
-  .signup_button{
-    left: 20px;
+
+  .logout_button,.signup_button,.login_button{
+    margin: 5px 5px
   }
-  .login_button{
-    left: 95px;
-  }
-  .logout_button{
-    left: 80px;
+
+  .netflix_form_group.form-group{
+    flex-direction: column;
   }
 }

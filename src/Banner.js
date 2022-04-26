@@ -3,7 +3,7 @@ import axios from "./axios";
 import requests from "./requests";
 import "./Banner.css";
 
-function Banner() {
+function Banner(props) {
   const [movie, setMovie] = useState([]);
 
   useEffect(() => {
@@ -24,16 +24,18 @@ function Banner() {
   function truncate(str, n) {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   }
-
   return (
     <header
       className="banner"
       style={{
         // backgroundSize: "contain",
-        backgroundSize: "cover",
+        // backgroundSize: "cover",
         backgroundImage: `url(
             "https://image.tmdb.org/t/p/original/${movie?.backdrop_path}")`,
-        backgroundPosition: "center center",
+        // backgroundPosition: "center center",
+        backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
+        backgroundSize: "cover",
         // backgroundRepeat: "space",
         // backgroundRepeat: "no-repeat",
       }}

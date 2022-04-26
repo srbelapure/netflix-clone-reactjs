@@ -92,9 +92,17 @@ function Login() {
     <>
       <div className="login_signup_buttons">
         {userloggedinn?.displayName ? (
+          <>
           <button className="logout_button" onClick={onLogOut}>
             Logout
           </button>
+          <img
+            onClick={()=>history.push("/profile")}
+            className="nav_avatar"
+            src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/366be133850498.56ba69ac36858.png"
+            alt="Netflix Logo"
+          />
+          </>
         ) : (
           <>
             <button className="login_button" onClick={toggleModal}>
@@ -102,7 +110,6 @@ function Login() {
             </button>
             <button
               className="signup_button"
-              outline
               onClick={toggleSignUpModal}
             >
               Sign Up
@@ -114,6 +121,8 @@ function Login() {
         className="login_signup_modal"
         isOpen={modalState}
         toggle={toggleModal}
+        centered={true}
+        size={"md"}
       >
         <ModalHeader toggle={toggleModal}>Login</ModalHeader>
         <ModalBody>
@@ -150,7 +159,7 @@ function Login() {
                 Remember me
               </label>
             </FormGroup> */}
-            <Button type="submit" value="submit" color="danger">
+            <Button className="submit-button-modals" type="submit" value="submit" color="danger">
               Login
             </Button>
           </Form>
@@ -161,6 +170,8 @@ function Login() {
         className="signup_modal"
         isOpen={signupModalState}
         toggle={() => setSignupModalState(!signupModalState)}
+        centered={true}
+        size={"md"}
       >
         <ModalHeader toggle={() => setSignupModalState(!signupModalState)}>
           Sign Up

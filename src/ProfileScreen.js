@@ -61,7 +61,7 @@ function ProfileScreen() {
           Edit Profile
         </h2>
         <div className="edit_profile_sub_section">
-          <img
+          {/* <img
             src="https://pbs.twimg.com/profile_images/1240119990411550720/hBEe3tdn_400x400.png"
             alt="User profile logo"
             style={{
@@ -70,7 +70,7 @@ function ProfileScreen() {
               objectFit: "contain",
               marginRight:'5px',
             }}
-          />
+          /> */}
           <div className="user_plans_section">
             <div className="logged_in_user">
               User : {user ? user.email : "not logged inn"}
