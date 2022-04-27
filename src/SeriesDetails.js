@@ -159,6 +159,7 @@ const OtherDetails = (props) => {
 
   const onRecomendationsOptionClick=(movie)=>{
     props.descProp(null)
+    window.scrollTo(0,0)
     history.push(`/tv/${movie.original_name}`, {
        movieData: movie
      })
