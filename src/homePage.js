@@ -1,9 +1,11 @@
 import React,{useState} from "react";
 import SignUpScreen from './SignUpScreen'
+import { auth } from "./firebase";
 import "./HomePage.css";
 
 function HomePage() {
   const [signIn, setSignIn] = useState(false)
+  auth.signOut();
   return (
     <>
       <div

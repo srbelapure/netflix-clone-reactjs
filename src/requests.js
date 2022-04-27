@@ -4,7 +4,7 @@ const commonQuery=`with_original_language=en&include_adult=false&watch_region=US
 
 const requests = {
   fetchTrending: `/trending/all/day?api_key=${API_KEY}&${commonQuery}`,
-  fetchNetflixOriginals: `/discover/tv?api_key=${API_KEY}&${commonQuery}&timezone=America/New_York`,
+  fetchNetflixOriginals: `/discover/tv?api_key=${API_KEY}&${commonQuery}&timezone=America/New_York&with_networks=213`,
   fetchTopRated: `/movie/top_rated?api_key=${API_KEY}&${commonQuery}`,
   fetchActionMovies: `/discover/movie?api_key=${API_KEY}&${commonQuery}&with_genres=28`,
   fetchComedyMovies: `/discover/movie?api_key=${API_KEY}&${commonQuery}&with_genres=35`,

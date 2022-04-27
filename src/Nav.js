@@ -10,7 +10,7 @@ function Nav() {
 
     useEffect(() => {
         window.addEventListener("scroll",()=>{
-            if(window.scrollY>100){
+            if(window.scrollY>10){
                 handleShow(true)
             }
             else{
@@ -31,7 +31,7 @@ function Nav() {
         auth.signOut();
         history.push("/")
       }
-      else if(window.location.pathname==='/tv/:seriesname'){
+      else if(window.location.pathname.includes("/tv/")){
         history.push("/movies")
       }
     }

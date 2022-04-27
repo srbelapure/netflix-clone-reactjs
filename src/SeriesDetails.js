@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import requests from "./requests";
 import axios from "./axios";
 import YouTube from "react-youtube";
+import movieTrailer from "movie-trailer";
+import { useHistory } from "react-router-dom";
 import "./SeriesDetails.css";
 
 const API_KEY = "c9fdccb771653c10a333eda0eb30038c";
@@ -14,10 +16,11 @@ const BannerSectionSeries = (props) => {
         style={{
           backgroundImage: `url(
         "https://image.tmdb.org/t/p/original/${props.movieData?.backdrop_path}")`,
-          backgroundPosition: "center center",
+        //   backgroundPosition: "center center",
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
           backgroundSize: "contain",
+          backgroundPositionX:"center"
         }}
       >
         <div className="banner-contents">
@@ -26,10 +29,6 @@ const BannerSectionSeries = (props) => {
               props.movieData?.name ||
               props.movieData?.original_name}
           </h1>
-          <div className="banner_buttons">
-            <button className="banner_button">Play</button>
-            <button className="banner_button">My List</button>
-          </div>
           <h1 className="banner_description">
             {truncate(props.movieData?.overview, 150)}
           </h1>
@@ -42,7 +41,7 @@ const BannerSectionSeries = (props) => {
 
 const SeriesDetailsSection = (props) => {
   const [dropdownvalue, setDropdownValue] = useState(1);
-  const [episodeDetails, setEpisodeDetails] = useState();
+  const [episodeDetails, setEpisodeDetails] = useState([]);
   useEffect(() => {
     if (props.seriesDetails && props.seriesDetails.id) {
       async function fetchData() {
@@ -53,42 +52,53 @@ const SeriesDetailsSection = (props) => {
       }
       fetchData();
     }
-  }, [dropdownvalue, props.seriesDetails]);
+  }, [dropdownvalue, props.seriesDetails.id]);
 
   const handleOnChange = (e) => {
     setDropdownValue(e.target.value);
+    props.descProp(null)
   };
 
+  const onEpisodeClick = (episodeSelected) => {
+    async function fetchData() {
+        const request = await axios.get(
+          `https://api.themoviedb.org/3/tv/${props.seriesDetails.id}/season/${episodeSelected.season_number}/episode/${episodeSelected.episode_number}?api_key=${API_KEY}&language=en-US`
+        );
+       props.descProp(request.data)
+      }
+      fetchData();
+  };
   return (
     <div>
       <div className="seasons-dropdown-and-episodes">
-        <select value={dropdownvalue} onChange={handleOnChange}>
+        <select className="seasons-dropdown" value={dropdownvalue} onChange={handleOnChange}>
           {props && props.seriesDetails && props.seriesDetails.seasons
             ? props.seriesDetails.seasons.map((item) => {
-                return (
-                  <option
-                    key={item.season_number + 1}
-                    value={item.season_number + 1}
-                  >
-                    Season {item.season_number + 1}
-                  </option>
-                );
+                if (item.season_number !== 0) {
+                  return (
+                    <option key={item.season_number} value={item.season_number}>
+                      Season {item.season_number}
+                    </option>
+                  );
+                }
               })
             : ""}
         </select>
         <div className="episodes-section">
           {episodeDetails && episodeDetails.episodes
-            ? episodeDetails.episodes.map((item) => {
+            ? episodeDetails.episodes.length>0?
+            episodeDetails.episodes.map((item) => {
                 return (
                   <div
                     className="episodes"
                     key={item.episode_number}
                     title={item.name}
+                    onClick={()=>onEpisodeClick(item)}
                   >
                     Eps {item.episode_number} : {item.name}
                   </div>
                 );
-              })
+              }):<div className="no-episodes-found">No episodes found...</div>
             : ""}
         </div>
       </div>
@@ -98,6 +108,7 @@ const SeriesDetailsSection = (props) => {
 
 const OtherDetails = (props) => {
   const [recomendations, setRecomendations] = useState([]);
+  const history = useHistory()
   useEffect(() => {
     if (props.seriesDetails.id) {
       async function fetchData() {
@@ -108,11 +119,13 @@ const OtherDetails = (props) => {
       }
       fetchData();
     }
-  }, [props.seriesDetails]);
+  }, [props.seriesDetails.id]);
 
-  console.log("recomendationsrecomendations", recomendations);
   let productionCompanyNames = [];
   let genresNames = [];
+  let productionCountryNames=[]
+  let crewMembers=[]
+  let episodeCast=[]
 
   if (props.seriesDetails && props.seriesDetails.production_companies) {
     props.seriesDetails.production_companies.map((companyName) => {
@@ -126,40 +139,115 @@ const OtherDetails = (props) => {
     });
   }
 
+  if (props.seriesDetails && props.seriesDetails.production_countries) {
+    props.seriesDetails.production_countries.map((countryName) => {
+      productionCountryNames.push(countryName.name);
+    });
+  }
+
+  if (props.descriptionOfShowsAsPerEpisodes && props.descriptionOfShowsAsPerEpisodes.crew) {
+    props.descriptionOfShowsAsPerEpisodes.crew.map((crew) => {
+        crewMembers.push(crew.name+'('+crew.job+')');
+    });
+  }
+
+  if (props.descriptionOfShowsAsPerEpisodes && props.descriptionOfShowsAsPerEpisodes.guest_stars) {
+    props.descriptionOfShowsAsPerEpisodes.guest_stars.map((star) => {
+        episodeCast.push(star.name+" "+'as'+" "+star.character);
+    });
+  }
+
+  const onRecomendationsOptionClick=(movie)=>{
+    props.descProp(null)
+    history.push(`/tv/${movie.original_name}`, {
+       movieData: movie
+     })
+  }
   return (
     <div className="other-details-section">
       <div className="series-poster-section">
-        <img
-          className="series-poster"
-          src={`https://image.tmdb.org/t/p/original/${props.seriesDetails?.poster_path}`}
-          alt={props.seriesDetails?.original_name}
-        />
+        {props.descriptionOfShowsAsPerEpisodes ? (
+          <img
+            className="episode-poster"
+            src={`https://image.tmdb.org/t/p/original/${props.descriptionOfShowsAsPerEpisodes?.still_path}`}
+            alt={props.descriptionOfShowsAsPerEpisodes?.name}
+          />
+        ) : (
+          <img
+            className="series-poster"
+            src={`https://image.tmdb.org/t/p/original/${props.seriesDetails?.poster_path}`}
+            alt={props.seriesDetails?.original_name}
+          />
+        )}
       </div>
       <div className="description-section">
-        <div className="title-and-details">
-          <h1>{props.seriesDetails?.original_name}</h1>
-          <h5>
-            Score: {props.seriesDetails?.vote_average}/{" "}
-            {props.seriesDetails?.vote_count} rated
-          </h5>
-        </div>
-        <div className="series-tagline">
-          <h6>{props.seriesDetails?.tagline}</h6>
-          <p>{props.seriesDetails?.episode_run_time}mins</p>
-        </div>
-        <div style={{ margin: "10px 0px" }}>
-          {props.seriesDetails?.overview}
-        </div>
-        <div className="production-details">
-          {props.seriesDetails && props.seriesDetails.production_countries
-            ? props.seriesDetails.production_countries.map((countryName) => {
-                return <div className="production-subdetails">Country : {countryName.name}</div>;
-              })
-            : ""}
-          <div className="production-subdetails">Genre : {genresNames.join()}</div>
-          <div className="production-subdetails">Released : {props.seriesDetails?.first_air_date}</div>
-          <div className="production-subdetails">Production : {productionCompanyNames.join()}</div>
-        </div>
+        {props.descriptionOfShowsAsPerEpisodes ? (
+          <div className="selected-episode-description">
+            <div className="title-and-details">
+              <h3>
+                Season {props.descriptionOfShowsAsPerEpisodes.season_number}-{" "}Episode {props.descriptionOfShowsAsPerEpisodes?.episode_number}:{" "}
+                {props.descriptionOfShowsAsPerEpisodes?.name}
+              </h3>
+              <h5>
+                <span style={{ color: "yellow" }}>
+                  Score: {props.descriptionOfShowsAsPerEpisodes?.vote_average}
+                </span>{" "}
+                ({props.descriptionOfShowsAsPerEpisodes?.vote_count} rated)
+              </h5>
+            </div>
+            <div style={{ margin: "10px 0px" }}>
+              {props.descriptionOfShowsAsPerEpisodes?.overview}
+            </div>
+            <div className="production-details">
+              {crewMembers.length > 0 && (
+                <div className="production-subdetails">
+                  Crew : {crewMembers.join()}
+                </div>
+              )}
+              <div className="production-subdetails">
+                Released : {props.descriptionOfShowsAsPerEpisodes?.air_date}
+              </div>
+              {episodeCast.length > 0 && (
+                <div className="production-subdetails">
+                  Casts : {episodeCast.join()}
+                </div>
+              )}
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="title-and-details">
+              <h1>{props.seriesDetails?.original_name}</h1>
+              <h5>
+                <span style={{ color: "yellow" }}>
+                  Score: {props.seriesDetails?.vote_average}
+                </span>{" "}
+                ({props.seriesDetails?.vote_count} rated)
+              </h5>
+            </div>
+            <div className="series-tagline">
+              <h6>{props.seriesDetails?.tagline}</h6>
+              <p>{props.seriesDetails?.episode_run_time}mins</p>
+            </div>
+            <div style={{ margin: "10px 0px" }}>
+              {props.seriesDetails?.overview}
+            </div>
+            <div className="production-details">
+              <div className="production-subdetails">
+                Country : {productionCountryNames.join()}
+              </div>
+              <div className="production-subdetails">
+                Genre : {genresNames.join()}
+              </div>
+              <div className="production-subdetails">
+                Released : {props.seriesDetails?.first_air_date}
+              </div>
+              <div className="production-subdetails">
+                Production : {productionCompanyNames.join()}
+              </div>
+            </div>
+          </>
+        )}
       </div>
       <div className="you-may-also-like-section">
         <h4 style={{ color: "lightgray" }}>You may also like</h4>
@@ -171,8 +259,9 @@ const OtherDetails = (props) => {
                     <img
                       className="recomendations-posters"
                       src={`https://image.tmdb.org/t/p/original/${item?.poster_path}`}
+                      onClick={() => onRecomendationsOptionClick(item)}
                     />
-                    <div>{truncate(item.original_name, 18)}</div>
+                    <div>{truncate(item.name, 18)}</div>
                   </div>
                 );
               })
@@ -188,7 +277,8 @@ function truncate(str, n) {
 }
 
 function SeriesDetails(props) {
-  const [seriesDetails, setSeriesDetails] = useState([]);
+  const [seriesdetails, setSeriesDetails] = useState([]);
+  const [descriptionOfShowsAsPerEpisodes,setDescriptionOfShowsAsPerEpisodes] = useState()
 
   useEffect(() => {
     async function fetchData() {
@@ -198,7 +288,12 @@ function SeriesDetails(props) {
       setSeriesDetails(request.data);
     }
     fetchData();
-  }, []);
+  }, [props.location.state.movieData.id]);
+
+  const callBackForDescriptionDetails = (item) => {
+    setDescriptionOfShowsAsPerEpisodes(item)
+  };
+  
 
   return (
     <div>
@@ -206,11 +301,22 @@ function SeriesDetails(props) {
       {/*  seasons and episodes*/}
       {/* image and all the deatils */}
       <BannerSectionSeries movieData={props.location.state.movieData} />
-      <SeriesDetailsSection seriesDetails={seriesDetails} />
+      <SeriesDetailsSection seriesDetails={seriesdetails} descProp={callBackForDescriptionDetails}/>
       <hr />
-      <OtherDetails seriesDetails={seriesDetails} />
+      <OtherDetails seriesDetails={seriesdetails} descriptionOfShowsAsPerEpisodes={descriptionOfShowsAsPerEpisodes} descProp={callBackForDescriptionDetails}/>
     </div>
   );
 }
 
 export default SeriesDetails;
+
+/**
+ * To send data from child component to parent component,
+ * 1] send a callback function as a prop to child component
+ * ex: descProp={callBackForDescriptionDetails}
+ * 2] Then in the child component access this props and set the value
+ * ex: props.descProp(request.data)
+ * 3] Then, in the parent component, weite the callback function and access the value set in child component
+ * 
+ * To send this value to another child component, send it as props and use accordingly
+ */

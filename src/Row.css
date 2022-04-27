@@ -13,13 +13,14 @@
 }
 
 /* -webkit-scrollbar ==> tell all browsers to keep functionality of scroll bars but donot display it */
-.row_posters::-webkit-scrollbar {
+/* .row_posters::-webkit-scrollbar {
   display: none;
-}
+} */
 
 /* object-fit: contain; ====> maintains aspect ratio */
 .row_poster {
-  width: 100%;
+  /* width: 100%; */
+  display: inline-block;
   object-fit: contain;
   max-height: 200px;
   margin-right: 20px;
@@ -30,15 +31,6 @@
   transform: scale(1.09);
   opacity: 1;
 }
-
-.row_poster_large{
-    max-height: 250px;
-}
-
-.row_poster_large:hover {
-    transform: scale(1.09);
-    opacity: 1;
-  }
 
 .poster_item_trailer{
   width: 100vw;

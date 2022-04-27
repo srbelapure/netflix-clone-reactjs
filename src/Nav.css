@@ -4,7 +4,7 @@
   width: 100vw;
   padding: 20px;
   height: 10vh;
-  z-index: 3;
+  z-index: 20;
 
   display: flex !important;
   justify-content: flex-end !important;
@@ -42,5 +42,6 @@
       } */
       .nav {
         justify-content: flex-start !important; 
+        /* height: 18vh; */
       }
   }
